@@ -1,6 +1,6 @@
-import { useAuthStore } from "../stores/auth.store";
-import { createAuthAmplifyAdapter } from "../../infrastructure/services/auth-amplify.service";
-import { ensureUser as ensureUserAction } from "../../infrastructure/actions/ensure-user.api.action";
+import { useAuthStore } from '../stores/auth.store';
+import { createAuthAmplifyAdapter } from '../../infrastructure/services/auth-amplify.service';
+import { ensureUser as ensureUserAction } from '../../infrastructure/actions/ensure-user.api.action';
 
 const authService = createAuthAmplifyAdapter();
 
@@ -35,6 +35,7 @@ export const useAuth = () => {
 
       return true;
     } catch (error) {
+      console.error(error);
       await signOut();
       return false;
     }
