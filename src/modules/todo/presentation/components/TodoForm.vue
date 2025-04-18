@@ -11,20 +11,27 @@
     >
       Add
     </button>
+    <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
   </form>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useTodos } from '../composables/useTodos'
+import { ref } from 'vue';
+import { useTodos } from '@todo/presentation/composables/useTodos';
 
-const { addTodo } = useTodos()
-const title = ref('')
+const { addTodo } = useTodos();
+const title = ref('');
+const errorMessage = ref('');
 
-function submit() {
+async function submit() {
   if (title.value.trim()) {
-    addTodo({ title: title.value })
-    title.value = ''
+    try {
+      errorMessage.value = '';
+      await addTodo({ title: title.value });
+      title.value = '';
+    } catch (error) {
+      errorMessage.value = error instanceof Error ? error.message : 'Error adding todo';
+    }
   }
 }
 </script>
