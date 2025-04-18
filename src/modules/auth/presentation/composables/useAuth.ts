@@ -1,8 +1,8 @@
-import { createAuthAmplifyAdapter } from '@auth/infrastructure/services/auth-amplify.service';
-import { ensureUser as ensureUserAction } from '@auth/infrastructure/actions/ensure-user.api.action';
+import authAmplifyService from '@auth/infrastructure/services/auth-amplify.service';
+import actions from '@auth/infrastructure/actions';
 import { useAuthStore } from '@auth/presentation/stores/auth.store';
 
-const authService = createAuthAmplifyAdapter();
+const authService = authAmplifyService;
 
 export const useAuth = () => {
   const authStore = useAuthStore();
@@ -30,7 +30,7 @@ export const useAuth = () => {
       });
 
       if (isFirstLogin) {
-        await ensureUserAction();
+        await actions.ensureUser();
       }
 
       return true;
