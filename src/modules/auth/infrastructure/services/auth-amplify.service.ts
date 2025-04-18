@@ -8,7 +8,7 @@ import type { IAuthService } from '@auth/domain/services/auth.service';
 import type { IAuthUser } from '@auth/domain/interfaces/auth-user.interface';
 import { GetCurrentUserError, RefreshSessionError } from '@auth/domain/errors/auth.errors';
 
-export function createAuthAmplifyAdapter(): IAuthService {
+function createAuthAmplifyAdapter(): IAuthService {
   const getUserFromSession = (session: AuthSession): IAuthUser | null => {
     if (!session.tokens) return null;
 
@@ -64,3 +64,7 @@ export function createAuthAmplifyAdapter(): IAuthService {
     },
   };
 }
+
+const authAmplifyService = createAuthAmplifyAdapter();
+
+export default authAmplifyService;

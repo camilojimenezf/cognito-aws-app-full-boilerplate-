@@ -1,7 +1,7 @@
 import type { AuthSession } from 'aws-amplify/auth';
 import * as amplifyAuth from 'aws-amplify/auth';
 import { GetCurrentUserError, RefreshSessionError } from '@auth/domain/errors/auth.errors';
-import { createAuthAmplifyAdapter } from '@auth/infrastructure/services/auth-amplify.service';
+import authAmplifyService from '@auth/infrastructure/services/auth-amplify.service';
 
 vi.mock('aws-amplify/auth', () => {
   return {
@@ -11,18 +11,19 @@ vi.mock('aws-amplify/auth', () => {
   };
 });
 
-describe('createAuthAmplifyAdapter', () => {
-  let service: ReturnType<typeof createAuthAmplifyAdapter>;
-
+describe('authAmplifyService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    service = createAuthAmplifyAdapter();
+  });
+
+  afterEach(() => {
+    vi.resetAllMocks();
   });
 
   it('signIn calls Amplify signInWithRedirect', async () => {
     const spyAmplifySignIn = vi.spyOn(amplifyAuth, 'signInWithRedirect').mockResolvedValue();
 
-    await service.signIn();
+    await authAmplifyService.signIn();
     expect(spyAmplifySignIn).toHaveBeenCalledTimes(1);
     expect(spyAmplifySignIn).toHaveBeenCalledWith({ provider: 'Google' });
   });
@@ -32,16 +33,16 @@ describe('createAuthAmplifyAdapter', () => {
     error.name = 'UserAlreadyAuthenticatedException';
     vi.spyOn(amplifyAuth, 'signInWithRedirect').mockRejectedValueOnce(error);
 
-    const spyRefresh = vi.spyOn(service, 'refreshSession').mockResolvedValue(null);
+    const spyRefresh = vi.spyOn(authAmplifyService, 'refreshSession').mockResolvedValue(null);
 
-    await service.signIn();
+    await authAmplifyService.signIn();
     expect(spyRefresh).toHaveBeenCalledTimes(1);
   });
 
   it('signOut calls Amplify signOut', async () => {
     const spyAmplifySignOut = vi.spyOn(amplifyAuth, 'signOut').mockResolvedValue();
 
-    await service.signOut();
+    await authAmplifyService.signOut();
     expect(spyAmplifySignOut).toHaveBeenCalledTimes(1);
   });
 
@@ -63,7 +64,7 @@ describe('createAuthAmplifyAdapter', () => {
       .spyOn(amplifyAuth, 'fetchAuthSession')
       .mockResolvedValueOnce(fakeSession);
 
-    const user = await service.getCurrentUser();
+    const user = await authAmplifyService.getCurrentUser();
     expect(user).toEqual({
       email: 'a@b.com',
       accessToken: 'abc-token',
@@ -78,14 +79,14 @@ describe('createAuthAmplifyAdapter', () => {
       .spyOn(amplifyAuth, 'fetchAuthSession')
       .mockResolvedValueOnce(fakeSession);
 
-    const user = await service.getCurrentUser();
+    const user = await authAmplifyService.getCurrentUser();
     expect(user).toBeNull();
     expect(spyAmplifyFetchSession).toHaveBeenCalledTimes(1);
   });
 
   it('getCurrentUser throws GetCurrentUserError on fetch error', async () => {
     vi.spyOn(amplifyAuth, 'fetchAuthSession').mockRejectedValueOnce(new Error('fail'));
-    await expect(service.getCurrentUser()).rejects.toBeInstanceOf(GetCurrentUserError);
+    await expect(authAmplifyService.getCurrentUser()).rejects.toBeInstanceOf(GetCurrentUserError);
   });
 
   it('refreshSession returns IAuthUser when forceRefresh succeeds', async () => {
@@ -106,7 +107,7 @@ describe('createAuthAmplifyAdapter', () => {
       .spyOn(amplifyAuth, 'fetchAuthSession')
       .mockResolvedValueOnce(fakeSession);
 
-    const user = await service.refreshSession();
+    const user = await authAmplifyService.refreshSession();
     expect(user).toEqual({
       email: 'x@y.com',
       accessToken: 'xyz-token',
@@ -117,7 +118,7 @@ describe('createAuthAmplifyAdapter', () => {
 
   it('refreshSession throws RefreshSessionError on error', async () => {
     vi.spyOn(amplifyAuth, 'fetchAuthSession').mockRejectedValueOnce(new Error('refresh fail'));
-    await expect(service.refreshSession()).rejects.toBeInstanceOf(RefreshSessionError);
+    await expect(authAmplifyService.refreshSession()).rejects.toBeInstanceOf(RefreshSessionError);
   });
 
   it('getToken returns idToken string', async () => {
@@ -133,7 +134,7 @@ describe('createAuthAmplifyAdapter', () => {
       .spyOn(amplifyAuth, 'fetchAuthSession')
       .mockResolvedValueOnce(fakeSession);
 
-    const token = await service.getToken();
+    const token = await authAmplifyService.getToken();
     expect(token).toBe('token-123');
     expect(spyAmplifyFetchSession).toHaveBeenCalledTimes(1);
   });
@@ -144,7 +145,7 @@ describe('createAuthAmplifyAdapter', () => {
       .spyOn(amplifyAuth, 'fetchAuthSession')
       .mockResolvedValueOnce(fakeSession);
 
-    const token = await service.getToken();
+    const token = await authAmplifyService.getToken();
     expect(token).toBe('');
     expect(spyAmplifyFetchSession).toHaveBeenCalledTimes(1);
   });
