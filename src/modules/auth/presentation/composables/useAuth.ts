@@ -1,6 +1,6 @@
-import { useAuthStore } from '../stores/auth.store';
-import { createAuthAmplifyAdapter } from '../../infrastructure/services/auth-amplify.service';
-import { ensureUser as ensureUserAction } from '../../infrastructure/actions/ensure-user.api.action';
+import { createAuthAmplifyAdapter } from '@auth/infrastructure/services/auth-amplify.service';
+import { ensureUser as ensureUserAction } from '@auth/infrastructure/actions/ensure-user.api.action';
+import { useAuthStore } from '@auth/presentation/stores/auth.store';
 
 const authService = createAuthAmplifyAdapter();
 

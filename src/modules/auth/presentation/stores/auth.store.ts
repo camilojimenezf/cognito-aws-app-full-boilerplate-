@@ -1,9 +1,9 @@
-import { computed, ref } from "vue";
-import { defineStore } from "pinia";
+import { computed, ref } from 'vue';
+import { defineStore } from 'pinia';
 
-import type { IAuthUser } from "../../domain/interfaces/auth-user.interface";
+import type { IAuthUser } from '@auth/domain/interfaces/auth-user.interface';
 
-export const useAuthStore = defineStore("auth", () => {
+export const useAuthStore = defineStore('auth', () => {
   const authUser = ref<IAuthUser>();
 
   const setAuthUser = (newAuthUser: IAuthUser) => {

@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth } from "../composables/useAuth";
+import { useAuth } from '@auth/presentation/composables/useAuth';
 
 const { signIn } = useAuth();
 </script>

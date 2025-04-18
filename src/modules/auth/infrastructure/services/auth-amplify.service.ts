@@ -4,9 +4,9 @@ import {
   signInWithRedirect as signInWithRedirectAmplify,
   type AuthSession,
 } from 'aws-amplify/auth';
-import type { IAuthService } from '../../domain/services/auth.service';
-import type { IAuthUser } from '../../domain/interfaces/auth-user.interface';
-import { GetCurrentUserError, RefreshSessionError } from '../../domain/errors/auth.errors';
+import type { IAuthService } from '@auth/domain/services/auth.service';
+import type { IAuthUser } from '@auth/domain/interfaces/auth-user.interface';
+import { GetCurrentUserError, RefreshSessionError } from '@auth/domain/errors/auth.errors';
 
 export function createAuthAmplifyAdapter(): IAuthService {
   const getUserFromSession = (session: AuthSession): IAuthUser | null => {
