@@ -11,6 +11,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@todo': fileURLToPath(new URL('./src/modules/todo', import.meta.url)),
     },
   },
 })
