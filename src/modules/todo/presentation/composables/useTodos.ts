@@ -1,35 +1,32 @@
-import type { CreateTodoDto } from '../../domain/dtos/create-todo.dto'
-import type { UpdateTodoDto } from '../../domain/dtos/update-todo.dto'
+import type { CreateTodoDto } from '@todo/domain/dtos/create-todo.dto'
+import type { UpdateTodoDto } from '@todo/domain/dtos/update-todo.dto'
 
-import { createTodo } from '../../infrastructure/actions/create-todo.local'
-import { updateTodo } from '../../infrastructure/actions/update-todo.local'
-import { getTodos } from '../../infrastructure/actions/get-todos.local'
-import { deleteTodo } from '../../infrastructure/actions/delete-todo.local'
+import actions from '@todo/infrastructure/actions'
 
-import { useTodoStore } from '../store/todo.store'
+import { useTodoStore } from '@todo/presentation/store/todo.store'
 
 export function useTodos() {
   const todoStore = useTodoStore()
 
   async function loadTodos() {
     todoStore.setLoading(true)
-    const todos = await getTodos()
+    const todos = await actions.getTodos()
     todoStore.setTodos(todos)
     todoStore.setLoading(false)
   }
 
   async function addTodo(input: CreateTodoDto) {
-    const todo = await createTodo(input)
+    const todo = await actions.createTodo(input)
     todoStore.addTodoToList(todo)
   }
 
   async function editTodo(input: UpdateTodoDto) {
-    const updated = await updateTodo(input)
+    const updated = await actions.updateTodo(input)
     todoStore.updateTodoInList(updated)
   }
 
   async function removeTodo(id: string) {
-    await deleteTodo(id)
+    await actions.deleteTodo(id)
     todoStore.removeTodoFromList(id)
   }
 
