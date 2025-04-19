@@ -4,10 +4,12 @@
       v-model="title"
       placeholder="Add a new task"
       class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      test-id="todo-form-input"
     />
     <button
       type="submit"
       class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
+      test-id="todo-form-submit"
     >
       Add
     </button>

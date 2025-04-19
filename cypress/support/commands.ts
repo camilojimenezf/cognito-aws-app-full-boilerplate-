@@ -37,11 +37,34 @@
 // }
 import './auth-provider-commands/cognito';
 
+Cypress.Commands.add('testId', (value) => {
+  return cy.get(`[test-id="${value}"]`);
+});
+
+Cypress.Commands.add('clearIndexedDB', () => {
+  cy.window().then((window) => {
+    // Delete all databases
+    return window.indexedDB.databases().then((databases) => {
+      return Promise.all(
+        databases.map((database) => {
+          return new Promise((resolve, reject) => {
+            const request = window.indexedDB.deleteDatabase(database.name as string);
+            request.onsuccess = () => resolve(null);
+            request.onerror = () => reject(request.error);
+          });
+        }),
+      );
+    });
+  });
+});
+
 /* eslint-disable @typescript-eslint/no-namespace */
 declare global {
   namespace Cypress {
     interface Chainable {
       loginByCognitoApi(username: string, password: string): Chainable<void>;
+      testId(value: string): Chainable<JQuery<HTMLElement>>;
+      clearIndexedDB(): Chainable<void>;
     }
   }
 }

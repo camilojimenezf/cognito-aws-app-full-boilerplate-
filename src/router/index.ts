@@ -26,6 +26,9 @@ export const router = createRouter({
     },
     {
       path: '/todo',
+      meta: {
+        requiresAuth: true,
+      },
       component: () => import('../modules/todo/presentation/pages/TodoPage.vue'),
     },
   ],

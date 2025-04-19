@@ -6,24 +6,24 @@
 
     <div v-if="todoStore.isLoading" class="text-center text-gray-500">Loading todos...</div>
 
-    <div v-else class="flex flex-col gap-4">
+    <div v-else class="flex flex-col gap-4" test-id="todo-list">
       <TodoItem v-for="todo in todoStore.todos" :key="todo.id" :todo="todo" />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted } from 'vue';
 
-import TodoForm from '../components/TodoForm.vue'
-import TodoItem from '../components/TodoItem.vue'
-import { useTodos } from '../composables/useTodos'
-import { useTodoStore } from '../store/todo.store'
+import TodoForm from '../components/TodoForm.vue';
+import TodoItem from '../components/TodoItem.vue';
+import { useTodos } from '../composables/useTodos';
+import { useTodoStore } from '../store/todo.store';
 
-const { loadTodos } = useTodos()
-const todoStore = useTodoStore()
+const { loadTodos } = useTodos();
+const todoStore = useTodoStore();
 
 onMounted(() => {
-  loadTodos()
-})
+  loadTodos();
+});
 </script>

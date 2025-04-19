@@ -8,6 +8,7 @@
         :checked="todo.completed"
         @change="toggle"
         class="w-5 h-5 text-blue-600"
+        test-id="todo-item-checkbox"
       />
       <span :class="['text-lg', todo.completed ? 'line-through text-gray-400' : 'text-gray-800']">
         {{ todo.title }}
@@ -17,6 +18,7 @@
       @click="remove"
       class="text-red-500 hover:text-red-700 transition cursor-pointer"
       title="Delete"
+      test-id="todo-item-delete"
     >
       🗑
     </button>
@@ -24,17 +26,17 @@
 </template>
 
 <script setup lang="ts">
-import type { ITodo } from '../../domain/entities/todo.entity'
-import { useTodos } from '../composables/useTodos'
+import type { ITodo } from '../../domain/entities/todo.entity';
+import { useTodos } from '../composables/useTodos';
 
-const props = defineProps<{ todo: ITodo }>()
-const { editTodo, removeTodo } = useTodos()
+const props = defineProps<{ todo: ITodo }>();
+const { editTodo, removeTodo } = useTodos();
 
 function toggle() {
-  editTodo({ id: props.todo.id, completed: !props.todo.completed })
+  editTodo({ id: props.todo.id, completed: !props.todo.completed });
 }
 
 function remove() {
-  removeTodo(props.todo.id)
+  removeTodo(props.todo.id);
 }
 </script>
