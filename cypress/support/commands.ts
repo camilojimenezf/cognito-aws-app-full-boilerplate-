@@ -35,5 +35,15 @@
 //     }
 //   }
 // }
+import './auth-provider-commands/cognito';
 
-export {}
+/* eslint-disable @typescript-eslint/no-namespace */
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      loginByCognitoApi(username: string, password: string): Chainable<void>;
+    }
+  }
+}
+
+export {};

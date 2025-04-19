@@ -37,3 +37,5 @@ coverage
 .deploy.staging.env
 .deploy.development.env
 .deploy.production.env
+
+cypress.env.json

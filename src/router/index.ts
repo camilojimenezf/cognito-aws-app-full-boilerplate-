@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
-import { useAuth } from '../modules/auth/presentation/composables/useAuth'
+import { useAuth } from '../modules/auth/presentation/composables/useAuth';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +15,7 @@ export const router = createRouter({
     {
       path: '/auth',
       component: () => import('../modules/auth/presentation/layouts/AuthLayout.vue'),
+      beforeEnter: [],
       children: [
         {
           path: '/auth',
@@ -28,16 +29,18 @@ export const router = createRouter({
       component: () => import('../modules/todo/presentation/pages/TodoPage.vue'),
     },
   ],
-})
+});
 
 router.beforeEach(async (to, _from, next) => {
-  const { checkAuth } = useAuth()
+  const { checkAuth } = useAuth();
 
-  const isAuthenticated = await checkAuth()
+  const isAuthenticated = await checkAuth();
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/auth')
+  if (to.path === '/auth' && isAuthenticated) {
+    next('/');
+  } else if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/auth');
   } else {
-    next()
+    next();
   }
-})
+});
