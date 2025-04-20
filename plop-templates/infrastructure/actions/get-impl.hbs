@@ -1,0 +1,13 @@
+import { ApiClientFactory } from '@/api/api.client'
+import type { Get{{pascalCase name}} } from '@{{name}}/domain/actions/get-{{name}}.action'
+import { type {{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/interfaces/get-response'
+import { map{{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/mappers/{{name}}.mapper'
+
+const apiClient = ApiClientFactory.createAuthClient()
+
+export const get{{pascalCase name}}: Get{{pascalCase name}} = async (id: string) => {
+  const response = await apiClient.get<{{pascalCase name}}GetResponse>(
+    `/{{name}}s/${id}`,
+  )
+  return map{{pascalCase name}}GetResponse(response.data)
+}

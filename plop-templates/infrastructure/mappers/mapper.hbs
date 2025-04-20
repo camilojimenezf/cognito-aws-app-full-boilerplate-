@@ -1,0 +1,40 @@
+import type { {{pascalCase name}}CreateResponse } from '@{{name}}/infrastructure/interfaces/create-response'
+import type { {{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/interfaces/get-response'
+import type { {{pascalCase name}}UpdateResponse } from '@{{name}}/infrastructure/interfaces/update-response'
+import type { I{{pascalCase name}} } from '@{{name}}/domain/entities/{{name}}.entity'
+
+/**
+ * Map the creation response to the domain entity.
+ */
+export function map{{pascalCase name}}CreateResponse(
+  data: {{pascalCase name}}CreateResponse
+): I{{pascalCase name}} {
+  return {
+    id: data.id,
+    // TODO: map here the creation fields
+  }
+}
+
+/**
+ * Map the individual read response to the domain entity.
+ */
+export function map{{pascalCase name}}GetResponse(
+  data: {{pascalCase name}}GetResponse
+): I{{pascalCase name}} {
+  return {
+    id: data.id,
+    // TODO: map here the read fields
+  }
+}
+
+/**
+ * Map the update response to the domain entity.
+ */
+export function map{{pascalCase name}}UpdateResponse(
+  data: {{pascalCase name}}UpdateResponse
+): I{{pascalCase name}} {
+  return {
+    id: data.id,
+    // TODO: map here the update fields
+  }
+}

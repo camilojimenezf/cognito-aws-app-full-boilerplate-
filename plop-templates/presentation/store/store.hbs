@@ -1,0 +1,51 @@
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
+import type { I{{pascalCase name}} } from '@{{name}}/domain/entities/{{name}}.entity'
+
+export const use{{pascalCase name}}Store = defineStore('{{name}}', () => {
+  // Estado
+  const items = ref<I{{pascalCase name}}[]>([])
+  const isLoading = ref(false)
+
+  // Mutadores
+  function setLoading(value: boolean) {
+    isLoading.value = value
+  }
+
+  function set{{pascalCase name}}s(list: I{{pascalCase name}}[]) {
+    items.value = list
+  }
+
+  function set{{pascalCase name}}(item: I{{pascalCase name}}) {
+    items.value = [item]
+  }
+
+  function add{{pascalCase name}}ToList(item: I{{pascalCase name}}) {
+    items.value.push(item)
+  }
+
+  function update{{pascalCase name}}InList(item: I{{pascalCase name}}) {
+    const idx = items.value.findIndex(i => i.id === item.id)
+    if (idx !== -1) {
+      items.value[idx] = item
+    }
+  }
+
+  function remove{{pascalCase name}}FromList(id: string) {
+    items.value = items.value.filter(i => i.id !== id)
+  }
+
+  return {
+    // state
+    items,
+    isLoading,
+
+    // actions
+    setLoading,
+    set{{pascalCase name}}s,
+    set{{pascalCase name}},
+    add{{pascalCase name}}ToList,
+    update{{pascalCase name}}InList,
+    remove{{pascalCase name}}FromList,
+  }
+})
