@@ -1,6 +1,6 @@
-import type { Create{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/create-{{name}}.dto'
-import type { Update{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/update-{{name}}.dto'
-import actions from '@{{name}}/infrastructure/actions'
+import type { Create{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/create-{{name}}.dto'
+import type { Update{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/update-{{name}}.dto'
+import actions from '@{{name}}/infrastructure/actions/{{name}}'
 import { use{{pascalCase name}}Store } from '@{{name}}/presentation/store/{{name}}.store'
 
 export function use{{pascalCase name}}() {

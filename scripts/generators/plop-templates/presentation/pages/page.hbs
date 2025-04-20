@@ -8,9 +8,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import type { I{{pascalCase name}} } from '@{{name}}/domain/entities/{{name}}.entity'
-import {{pascalCase name}}Component from '@{{name}}/presentation/components/{{pascalCase name}}Component.vue'
-import { use{{pascalCase name}} } from '@{{name}}/presentation/composables/use{{pascalCase name}}'
-import { use{{pascalCase name}}Store } from '@{{name}}/presentation/store/{{name}}.store'
+import {{pascalCase name}}Component from '@{{name}}/presentation/components/{{name}}/{{pascalCase name}}Component.vue'
+import { use{{pascalCase name}} } from '@{{name}}/presentation/composables/{{name}}/use{{pascalCase name}}'
+import { use{{pascalCase name}}Store } from '@{{name}}/presentation/store/{{name}}/{{name}}.store'
 
 const { load{{pascalCase name}}s } = use{{pascalCase name}}()
 const store{{pascalCase name}} = use{{pascalCase name}}Store()

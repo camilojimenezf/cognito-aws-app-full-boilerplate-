@@ -1,6 +1,6 @@
 import { ApiClientFactory } from '@/api/api.client'
-import type { List{{pascalCase name}}s } from '@{{name}}/domain/actions/list-{{name}}s.action'
-import { type {{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/interfaces/get-response'
+import type { List{{pascalCase name}}s } from '@{{name}}/domain/actions/{{name}}/list-{{name}}s.action'
+import { type {{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/interfaces/{{name}}/get-response'
 import { map{{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/mappers/{{name}}.mapper'
 
 const apiClient = ApiClientFactory.createAuthClient()

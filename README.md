@@ -47,17 +47,17 @@ nvm use 20.15.0
 ## 4. Deploy command
 
 ```bash
-./deploy.sh staging
+./scripts/deploy/deploy.sh staging
 ```
 
 ## Development
 
 ```bash
-./deploy.sh development
+./scripts/deploy/deploy.sh development
 ```
 
 ## Production
 
 ```bash
-./deploy.sh production
+./scripts/deploy/deploy.sh production
 ```

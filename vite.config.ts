@@ -11,8 +11,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@auth': fileURLToPath(new URL('./src/modules/auth', import.meta.url)),
-      '@todo': fileURLToPath(new URL('./src/modules/todo', import.meta.url)),
+      '@auth': fileURLToPath(new URL('./src/features/auth', import.meta.url)),
+      '@todo': fileURLToPath(new URL('./src/features/todo', import.meta.url)),
     },
   },
 });

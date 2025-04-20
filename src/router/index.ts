@@ -1,26 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { useAuth } from '../modules/auth/presentation/composables/useAuth';
+import { useAuth } from '../features/auth/presentation/composables/useAuth';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      component: () => import('../modules/home/presentation/pages/HomePage.vue'),
+      component: () => import('../features/home/presentation/pages/HomePage.vue'),
       meta: {
         requiresAuth: true,
       },
     },
     {
       path: '/auth',
-      component: () => import('../modules/auth/presentation/layouts/AuthLayout.vue'),
+      component: () => import('../features/auth/presentation/layouts/AuthLayout.vue'),
       beforeEnter: [],
       children: [
         {
           path: '/auth',
           name: 'auth',
-          component: () => import('../modules/auth/presentation/pages/AuthPage.vue'),
+          component: () => import('../features/auth/presentation/pages/AuthPage.vue'),
         },
       ],
     },
@@ -29,7 +29,7 @@ export const router = createRouter({
       meta: {
         requiresAuth: true,
       },
-      component: () => import('../modules/todo/presentation/pages/TodoPage.vue'),
+      component: () => import('../features/todo/presentation/pages/TodoPage.vue'),
     },
   ],
 });

@@ -1,7 +1,7 @@
 import { ApiClientFactory } from '@/api/api.client'
-import type { Update{{pascalCase name}} } from '@{{name}}/domain/actions/update-{{name}}.action'
-import type { Update{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/update-{{name}}.dto'
-import { type {{pascalCase name}}UpdateResponse } from '@{{name}}/infrastructure/interfaces/update-response'
+import type { Update{{pascalCase name}} } from '@{{name}}/domain/actions/{{name}}/update-{{name}}.action'
+import type { Update{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/update-{{name}}.dto'
+import { type {{pascalCase name}}UpdateResponse } from '@{{name}}/infrastructure/interfaces/{{name}}/update-response'
 import { map{{pascalCase name}}UpdateResponse } from '@{{name}}/infrastructure/mappers/{{name}}.mapper'
 
 const apiClient = ApiClientFactory.createAuthClient()

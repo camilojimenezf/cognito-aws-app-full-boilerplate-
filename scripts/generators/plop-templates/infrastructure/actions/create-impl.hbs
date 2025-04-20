@@ -1,7 +1,7 @@
 import { ApiClientFactory } from '@/api/api.client'
-import type { Create{{pascalCase name}} } from '@{{name}}/domain/actions/create-{{name}}.action'
-import type { Create{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/create-{{name}}.dto'
-import { type {{pascalCase name}}CreateResponse } from '@{{name}}/infrastructure/interfaces/create-response'
+import type { Create{{pascalCase name}} } from '@{{name}}/domain/actions/{{name}}/create-{{name}}.action'
+import type { Create{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/create-{{name}}.dto'
+import { type {{pascalCase name}}CreateResponse } from '@{{name}}/infrastructure/interfaces/{{name}}/create-response'
 import { map{{pascalCase name}}CreateResponse } from '@{{name}}/infrastructure/mappers/{{name}}.mapper'
 
 const apiClient = ApiClientFactory.createAuthClient()

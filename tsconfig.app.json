@@ -8,8 +8,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@auth/*": ["./src/modules/auth/*"],
-      "@todo/*": ["./src/modules/todo/*"]
+      "@auth/*": ["./src/features/auth/*"],
+      "@todo/*": ["./src/features/todo/*"]
     }
   }
 }

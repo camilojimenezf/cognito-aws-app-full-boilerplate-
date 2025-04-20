@@ -15,7 +15,8 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "plop": "plop --plopfile plopfile.js"
+    "create:feature": "plop --plopfile scripts/generators/plopfile.js feature",
+    "create:resource": "plop --plopfile scripts/generators/plopfile.js resource"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
