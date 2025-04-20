@@ -385,7 +385,15 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/domain/actions/${resource}/get-${resource}s.action.ts`,
+            `${base}/domain/actions/${resource}/list-${resource}s.action.ts`,
+          ),
+          templateFile: 'plop-templates/domain/actions/list-action.hbs',
+        },
+        {
+          type: 'add',
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${resource}/get-${resource}.action.ts`,
           ),
           templateFile: 'plop-templates/domain/actions/get-action.hbs',
         },
@@ -419,7 +427,15 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${resource}/get-${resource}s.impl.ts`,
+            `${base}/infrastructure/actions/${resource}/list-${resource}s.impl.ts`,
+          ),
+          templateFile: 'plop-templates/infrastructure/actions/list-impl.hbs',
+        },
+        {
+          type: 'add',
+          path: path.join(
+            projectRoot,
+            `${base}/infrastructure/actions/${resource}/get-${resource}.impl.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/get-impl.hbs',
         },
@@ -444,6 +460,34 @@ export default function (plop) {
           path: path.join(projectRoot, `${base}/infrastructure/actions/${resource}/index.ts`),
           templateFile: 'plop-templates/infrastructure/actions/index.hbs',
         },
+
+        // Infrastructure ─ interfaces
+        {
+          type: 'add',
+          path: path.join(
+            projectRoot,
+            `${base}/infrastructure/interfaces/${resource}/create-response.ts`,
+          ),
+          templateFile: 'plop-templates/infrastructure/interfaces/create-response.hbs',
+        },
+        {
+          type: 'add',
+          path: path.join(
+            projectRoot,
+            `${base}/infrastructure/interfaces/${resource}/get-response.ts`,
+          ),
+          templateFile: 'plop-templates/infrastructure/interfaces/get-response.hbs',
+        },
+        {
+          type: 'add',
+          path: path.join(
+            projectRoot,
+            `${base}/infrastructure/interfaces/${resource}/update-response.ts`,
+          ),
+          templateFile: 'plop-templates/infrastructure/interfaces/update-response.hbs',
+        },
+
+        // Infrastructure ─ mappers
         {
           type: 'add',
           path: path.join(projectRoot, `${base}/infrastructure/mappers/${resource}.mapper.ts`),
@@ -455,7 +499,7 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/presentation/composables/${resource}/use-${resource}.ts`,
+            `${base}/presentation/composables/${resource}/use${pascal}.ts`,
           ),
           templateFile: 'plop-templates/presentation/composables/use-composable.hbs',
         },
