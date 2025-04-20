@@ -6,9 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import type { I{{pascalCase name}} } from '@{{name}}/domain/entities/{{name}}.entity'
-import {{pascalCase name}}Component from '@{{name}}/presentation/components/{{name}}/{{pascalCase name}}Component.vue'
+import { onMounted } from 'vue'
 import { use{{pascalCase name}} } from '@{{name}}/presentation/composables/{{name}}/use{{pascalCase name}}'
 import { use{{pascalCase name}}Store } from '@{{name}}/presentation/store/{{name}}/{{name}}.store'
 
@@ -17,5 +15,6 @@ const store{{pascalCase name}} = use{{pascalCase name}}Store()
 
 onMounted(async () => {
   await load{{pascalCase name}}s()
+  console.log(store{{pascalCase name}}.items)
 })
 </script>

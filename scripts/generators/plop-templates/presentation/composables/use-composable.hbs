@@ -1,36 +1,36 @@
-import type { Create{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/create-{{name}}.dto'
-import type { Update{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/update-{{name}}.dto'
-import actions from '@{{name}}/infrastructure/actions/{{name}}'
-import { use{{pascalCase name}}Store } from '@{{name}}/presentation/store/{{name}}.store'
+import type { Create{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/create-{{name}}.dto';
+import type { Update{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/update-{{name}}.dto';
+import actions from '@{{name}}/infrastructure/actions/{{name}}';
+import { use{{pascalCase name}}Store } from '@{{name}}/presentation/store/{{name}}/{{name}}.store';
 
 export function use{{pascalCase name}}() {
   const store = use{{pascalCase name}}Store()
 
   async function load{{pascalCase name}}s() {
-    store.setLoading(true)
-    const items = await actions.list{{pascalCase name}}s()
-    store.set{{pascalCase name}}s(items)
-    store.setLoading(false)
+    store.setLoading(true);
+    const items = await actions.list{{pascalCase name}}s();
+    store.set{{pascalCase name}}s(items);
+    store.setLoading(false);
   }
 
   async function get{{pascalCase name}}(id: string) {
-    const item = await actions.get{{pascalCase name}}(id)
-    store.set{{pascalCase name}}(item)
+    const item = await actions.get{{pascalCase name}}(id);
+    store.set{{pascalCase name}}(item);
   }
 
   async function add{{pascalCase name}}(input: Create{{pascalCase name}}Dto) {
-    const item = await actions.create{{pascalCase name}}(input)
-    store.add{{pascalCase name}}ToList(item)
+    const item = await actions.create{{pascalCase name}}(input);
+    store.add{{pascalCase name}}ToList(item);
   }
 
   async function edit{{pascalCase name}}(input: Update{{pascalCase name}}Dto) {
-    const updated = await actions.update{{pascalCase name}}(input)
-    store.update{{pascalCase name}}InList(updated)
+    const updated = await actions.update{{pascalCase name}}(input);
+    store.update{{pascalCase name}}InList(updated);
   }
 
   async function remove{{pascalCase name}}(id: string) {
-    await actions.delete{{pascalCase name}}(id)
-    store.remove{{pascalCase name}}FromList(id)
+    await actions.delete{{pascalCase name}}(id);
+    store.remove{{pascalCase name}}FromList(id);
   }
 
   return {
@@ -39,5 +39,5 @@ export function use{{pascalCase name}}() {
     add{{pascalCase name}},
     edit{{pascalCase name}},
     remove{{pascalCase name}},
-  }
+  };
 }

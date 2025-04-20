@@ -16,6 +16,7 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "create:feature": "plop --plopfile scripts/generators/plopfile.js feature",
+    "create:skeleton": "plop --plopfile scripts/generators/plopfile.js skeleton",
     "create:resource": "plop --plopfile scripts/generators/plopfile.js resource"
   },
   "dependencies": {
