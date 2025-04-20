@@ -1,13 +1,13 @@
 import { ApiClientFactory } from '@/api/api.client'
-import type { Get{{pascalCase name}} } from '@{{name}}/domain/actions/{{name}}/get-{{name}}.action'
-import { type {{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/interfaces/{{name}}/get-response'
-import { map{{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/mappers/{{name}}.mapper'
+import type { Get{{pascalCase resource}} } from '@{{feature}}/domain/actions/{{resource}}/get-{{resource}}.action'
+import { type {{pascalCase resource}}GetResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/get-response'
+import { map{{pascalCase resource}}GetResponse } from '@{{feature}}/infrastructure/mappers/{{resource}}.mapper'
 
 const apiClient = ApiClientFactory.createAuthClient()
 
-export const get{{pascalCase name}}: Get{{pascalCase name}} = async (id: string) => {
-  const response = await apiClient.get<{{pascalCase name}}GetResponse>(
-    `/{{name}}s/${id}`,
+export const get{{pascalCase resource}}: Get{{pascalCase resource}} = async (id: string) => {
+  const response = await apiClient.get<{{pascalCase resource}}GetResponse>(
+    `/{{resource}}s/${id}`,
   )
-  return map{{pascalCase name}}GetResponse(response.data)
+  return map{{pascalCase resource}}GetResponse(response.data)
 }

@@ -1,6 +1,6 @@
-import type { I{{pascalCase name}} } from '@{{name}}/domain/entities/{{name}}.entity'
-import type { Create{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/create-{{name}}.dto'
+import type { I{{pascalCase resource}} } from '@{{feature}}/domain/entities/{{resource}}.entity'
+import type { Create{{pascalCase resource}}Dto } from '@{{feature}}/domain/dtos/{{resource}}/create-{{resource}}.dto'
 
-export type Create{{pascalCase name}} = (
-  input: Create{{pascalCase name}}Dto
-) => Promise<I{{pascalCase name}}>
+export type Create{{pascalCase resource}} = (
+  input: Create{{pascalCase resource}}Dto
+) => Promise<I{{pascalCase resource}}>

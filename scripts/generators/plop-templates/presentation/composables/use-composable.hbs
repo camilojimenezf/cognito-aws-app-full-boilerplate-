@@ -1,43 +1,43 @@
-import type { Create{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/create-{{name}}.dto';
-import type { Update{{pascalCase name}}Dto } from '@{{name}}/domain/dtos/{{name}}/update-{{name}}.dto';
-import actions from '@{{name}}/infrastructure/actions/{{name}}';
-import { use{{pascalCase name}}Store } from '@{{name}}/presentation/store/{{name}}/{{name}}.store';
+import type { Create{{pascalCase resource}}Dto } from '@{{feature}}/domain/dtos/{{resource}}/create-{{resource}}.dto';
+import type { Update{{pascalCase resource}}Dto } from '@{{feature}}/domain/dtos/{{resource}}/update-{{resource}}.dto';
+import actions from '@{{feature}}/infrastructure/actions/{{resource}}';
+import { use{{pascalCase resource}}Store } from '@{{feature}}/presentation/store/{{resource}}/{{resource}}.store';
 
-export function use{{pascalCase name}}() {
-  const store = use{{pascalCase name}}Store()
+export function use{{pascalCase resource}}() {
+  const store = use{{pascalCase resource}}Store()
 
-  async function load{{pascalCase name}}s() {
+  async function load{{pascalCase resource}}s() {
     store.setLoading(true);
-    const items = await actions.list{{pascalCase name}}s();
-    store.set{{pascalCase name}}s(items);
+    const items = await actions.list{{pascalCase resource}}s();
+    store.set{{pascalCase resource}}s(items);
     store.setLoading(false);
   }
 
-  async function get{{pascalCase name}}(id: string) {
-    const item = await actions.get{{pascalCase name}}(id);
-    store.set{{pascalCase name}}(item);
+  async function get{{pascalCase resource}}(id: string) {
+    const item = await actions.get{{pascalCase resource}}(id);
+    store.set{{pascalCase resource}}(item);
   }
 
-  async function add{{pascalCase name}}(input: Create{{pascalCase name}}Dto) {
-    const item = await actions.create{{pascalCase name}}(input);
-    store.add{{pascalCase name}}ToList(item);
+  async function add{{pascalCase resource}}(input: Create{{pascalCase resource}}Dto) {
+    const item = await actions.create{{pascalCase resource}}(input);
+    store.add{{pascalCase resource}}ToList(item);
   }
 
-  async function edit{{pascalCase name}}(input: Update{{pascalCase name}}Dto) {
-    const updated = await actions.update{{pascalCase name}}(input);
-    store.update{{pascalCase name}}InList(updated);
+  async function edit{{pascalCase resource}}(input: Update{{pascalCase resource}}Dto) {
+    const updated = await actions.update{{pascalCase resource}}(input);
+    store.update{{pascalCase resource}}InList(updated);
   }
 
-  async function remove{{pascalCase name}}(id: string) {
-    await actions.delete{{pascalCase name}}(id);
-    store.remove{{pascalCase name}}FromList(id);
+  async function remove{{pascalCase resource}}(id: string) {
+    await actions.delete{{pascalCase resource}}(id);
+    store.remove{{pascalCase resource}}FromList(id);
   }
 
   return {
-    load{{pascalCase name}}s,
-    get{{pascalCase name}},
-    add{{pascalCase name}},
-    edit{{pascalCase name}},
-    remove{{pascalCase name}},
+    load{{pascalCase resource}}s,
+    get{{pascalCase resource}},
+    add{{pascalCase resource}},
+    edit{{pascalCase resource}},
+    remove{{pascalCase resource}},
   };
 }

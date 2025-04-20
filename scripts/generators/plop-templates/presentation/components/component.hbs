@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!-- TODO: show here your {{pascalCase name}} -->
+    <!-- TODO: show here your {{pascalCase resource}} -->
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { I{{pascalCase name}} } from '@{{name}}/domain/entities/{{name}}.entity'
-defineProps<{ item: I{{pascalCase name}} }>()
+import type { I{{pascalCase resource}} } from '@{{feature}}/domain/entities/{{resource}}.entity'
+defineProps<{ item: I{{pascalCase resource}} }>()
 </script>

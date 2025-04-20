@@ -1,20 +1,20 @@
 <template>
   <section class="p-4">
-    <h1>{{pascalCase name}} Page</h1>
+    <h1>{{pascalCase resource}} Page</h1>
     <!-- TODO: usa aquí tu componente y composable -->
   </section>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { use{{pascalCase name}} } from '@{{name}}/presentation/composables/{{name}}/use{{pascalCase name}}'
-import { use{{pascalCase name}}Store } from '@{{name}}/presentation/store/{{name}}/{{name}}.store'
+import { use{{pascalCase resource}} } from '@{{feature}}/presentation/composables/{{resource}}/use{{pascalCase resource}}'
+import { use{{pascalCase resource}}Store } from '@{{feature}}/presentation/store/{{resource}}/{{resource}}.store'
 
-const { load{{pascalCase name}}s } = use{{pascalCase name}}()
-const store{{pascalCase name}} = use{{pascalCase name}}Store()
+const { load{{pascalCase resource}}s } = use{{pascalCase resource}}()
+const store{{pascalCase resource}} = use{{pascalCase resource}}Store()
 
 onMounted(async () => {
-  await load{{pascalCase name}}s()
-  console.log(store{{pascalCase name}}.items)
+  await load{{pascalCase resource}}s()
+  console.log(store{{pascalCase resource}}.items)
 })
 </script>

@@ -19,19 +19,19 @@ export default function (plop) {
     prompts: [
       {
         type: 'input',
-        name: 'name',
+        name: 'feature',
         message: 'Feature name (kebab-case, e.g. "catalog")',
         validate: (v) =>
           /^[a-z0-9]+(-[a-z0-9]+)*$/.test(v) || 'Usa kebab-case (solo minúsculas y guiones)',
       },
     ],
     actions: (answers) => {
-      const { name } = answers;
-      const base = path.join(projectRoot, `src/features/${name}`);
+      const { feature } = answers;
+      const base = path.join(projectRoot, `src/features/${feature}`);
 
       // Si ya existe, abortar
       if (fs.existsSync(base)) {
-        throw new Error(`Feature "${name}" ya existe en src/features/${name}`);
+        throw new Error(`Feature "${feature}" ya existe en src/features/${feature}`);
       }
 
       // Solo creamos carpetas vacías con un .gitkeep en cada una
@@ -61,7 +61,7 @@ export default function (plop) {
           path: path.join(projectRoot, 'vite.config.ts'),
           skip: () => !fs.existsSync(path.join(projectRoot, 'vite.config.ts')) && 'skip',
           transform: (content) => {
-            const aliasLine = `      '@${name}': fileURLToPath(new URL('./src/features/${name}', import.meta.url)),`;
+            const aliasLine = `      '@${feature}': fileURLToPath(new URL('./src/features/${feature}', import.meta.url)),`;
             return content.replace(
               /(alias:\s*{)([\s\S]*?)(^\s*}),/m,
               (_, start, inner, close) => `${start}${inner.trimEnd()}\n${aliasLine}\n${close}`,
@@ -73,7 +73,7 @@ export default function (plop) {
           path: path.join(projectRoot, 'tsconfig.app.json'),
           skip: () => !fs.existsSync(path.join(projectRoot, 'tsconfig.app.json')) && 'skip',
           transform: (content) => {
-            const aliasLine = `      "@${name}/*": ["./src/features/${name}/*"],`;
+            const aliasLine = `      "@${feature}/*": ["./src/features/${feature}/*"],`;
             return content.replace(
               /("paths"\s*:\s*{\s*)([\s\S]*?)(\s*}\s*)/m,
               (_, before, inner, after) => {
@@ -93,7 +93,7 @@ export default function (plop) {
     prompts: [
       {
         type: 'input',
-        name: 'name',
+        name: 'feature',
         message: 'Feature name (kebab-case, e.g. "todo-item")',
         validate: (value) =>
           value && /^[a-z0-9]+(-[a-z0-9]+)*$/.test(value)
@@ -106,53 +106,70 @@ export default function (plop) {
         throw new Error('Answers are required');
       }
 
-      const { name } = answers;
-      const pascal = pascalCase(name);
+      answers.resource = answers.feature; // resource is used inside templates
 
-      const base = `src/features/${name}`;
+      const { feature } = answers;
+      const pascal = pascalCase(feature);
+
+      const base = `src/features/${feature}`;
 
       return [
         // Domain ─ entities
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/entities/${name}.entity.ts`),
+          path: path.join(projectRoot, `${base}/domain/entities/${feature}.entity.ts`),
           templateFile: 'plop-templates/domain/entities/entity.hbs',
         },
         // Domain ─ DTOs
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/dtos/${name}/create-${name}.dto.ts`),
+          path: path.join(projectRoot, `${base}/domain/dtos/${feature}/create-${feature}.dto.ts`),
           templateFile: 'plop-templates/domain/dtos/create-dto.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/dtos/${name}/update-${name}.dto.ts`),
+          path: path.join(projectRoot, `${base}/domain/dtos/${feature}/update-${feature}.dto.ts`),
           templateFile: 'plop-templates/domain/dtos/update-dto.hbs',
         },
         // Domain ─ Actions
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/create-${name}.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${feature}/create-${feature}.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/create-action.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/list-${name}s.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${feature}/list-${feature}s.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/list-action.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/update-${name}.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${feature}/update-${feature}.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/update-action.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/get-${name}.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${feature}/get-${feature}.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/get-action.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/delete-${name}.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${feature}/delete-${feature}.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/delete-action.hbs',
         },
 
@@ -161,7 +178,7 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${name}/create-${name}.api.ts`,
+            `${base}/infrastructure/actions/${feature}/create-${feature}.api.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/create-impl.hbs',
         },
@@ -169,7 +186,7 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${name}/update-${name}.api.ts`,
+            `${base}/infrastructure/actions/${feature}/update-${feature}.api.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/update-impl.hbs',
         },
@@ -177,33 +194,36 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${name}/list-${name}s.api.ts`,
+            `${base}/infrastructure/actions/${feature}/list-${feature}s.api.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/list-impl.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/infrastructure/actions/${name}/get-${name}.api.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/infrastructure/actions/${feature}/get-${feature}.api.ts`,
+          ),
           templateFile: 'plop-templates/infrastructure/actions/get-impl.hbs',
         },
         {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${name}/delete-${name}.api.ts`,
+            `${base}/infrastructure/actions/${feature}/delete-${feature}.api.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/delete-impl.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/infrastructure/actions/${name}/index.ts`),
+          path: path.join(projectRoot, `${base}/infrastructure/actions/${feature}/index.ts`),
           templateFile: 'plop-templates/infrastructure/actions/index.hbs',
         },
 
         // Infrastructure ─ mappers
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/infrastructure/mappers/${name}.mapper.ts`),
+          path: path.join(projectRoot, `${base}/infrastructure/mappers/${feature}.mapper.ts`),
           templateFile: 'plop-templates/infrastructure/mappers/mapper.hbs',
         },
 
@@ -212,20 +232,23 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/interfaces/${name}/create-response.ts`,
+            `${base}/infrastructure/interfaces/${feature}/create-response.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/interfaces/create-response.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/infrastructure/interfaces/${name}/get-response.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/infrastructure/interfaces/${feature}/get-response.ts`,
+          ),
           templateFile: 'plop-templates/infrastructure/interfaces/get-response.hbs',
         },
         {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/interfaces/${name}/update-response.ts`,
+            `${base}/infrastructure/interfaces/${feature}/update-response.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/interfaces/update-response.hbs',
         },
@@ -233,7 +256,10 @@ export default function (plop) {
         // Presentation ─ composable
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/presentation/composables/${name}/use${pascal}.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/presentation/composables/${feature}/use${pascal}.ts`,
+          ),
           templateFile: 'plop-templates/presentation/composables/use-composable.hbs',
         },
         // Presentation ─ component
@@ -241,20 +267,20 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/presentation/components/${name}/${pascal}Component.vue`,
+            `${base}/presentation/components/${feature}/${pascal}Component.vue`,
           ),
           templateFile: 'plop-templates/presentation/components/component.hbs',
         },
         // Presentation ─ page
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/presentation/pages/${name}/${pascal}Page.vue`),
+          path: path.join(projectRoot, `${base}/presentation/pages/${feature}/${pascal}Page.vue`),
           templateFile: 'plop-templates/presentation/pages/page.hbs',
         },
         // Presentation ─ store
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/presentation/store/${name}/${name}.store.ts`),
+          path: path.join(projectRoot, `${base}/presentation/store/${feature}/${feature}.store.ts`),
           templateFile: 'plop-templates/presentation/store/store.hbs',
         },
 
@@ -263,8 +289,8 @@ export default function (plop) {
           type: 'modify',
           path: path.join(projectRoot, 'vite.config.ts'),
           transform: (content, answers) => {
-            const name = answers.name;
-            const aliasLine = `      '@${name}': fileURLToPath(new URL('./src/features/${name}', import.meta.url)),`;
+            const feature = answers.feature;
+            const aliasLine = `      '@${feature}': fileURLToPath(new URL('./src/features/${feature}', import.meta.url)),`;
 
             // We search the alias: { ... } block
             return content.replace(
@@ -279,8 +305,8 @@ export default function (plop) {
           type: 'modify',
           path: path.join(projectRoot, 'tsconfig.app.json'),
           transform: (content, answers) => {
-            const name = answers.name;
-            const aliasLine = `      "@${name}/*": ["./src/features/${name}/*"],`;
+            const feature = answers.feature;
+            const aliasLine = `      "@${feature}/*": ["./src/features/${feature}/*"],`;
 
             return content.replace(
               /("paths"\s*:\s*{\s*)([\s\S]*?)(\s*}\s*)/m,
@@ -314,15 +340,15 @@ export default function (plop) {
       },
       {
         type: 'input',
-        name: 'name',
+        name: 'resource',
         message: 'Resource name (kebab-case)',
         validate: (v) =>
           /^[a-z0-9]+(-[a-z0-9]+)*$/.test(v) || 'Use kebab-case (lowercase, hyphens allowed)',
       },
     ],
     actions: (answers) => {
-      const { feature, name } = answers;
-      const pascal = pascalCase(name);
+      const { feature, resource } = answers;
+      const pascal = pascalCase(resource);
       const base = `src/features/${feature}`;
 
       // If for some reason the feature does not exist, abort
@@ -334,43 +360,50 @@ export default function (plop) {
         // Domain
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/entities/${name}.entity.ts`),
-          templateFile: 'plop-templates/domain/entity.hbs',
+          path: path.join(projectRoot, `${base}/domain/entities/${resource}.entity.ts`),
+          templateFile: 'plop-templates/domain/entities/entity.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/dtos/${name}/create-${name}.dto.ts`),
-          templateFile: 'plop-templates/domain/create-dto.hbs',
+          path: path.join(projectRoot, `${base}/domain/dtos/${resource}/create-${resource}.dto.ts`),
+          templateFile: 'plop-templates/domain/dtos/create-dto.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/dtos/${name}/update-${name}.dto.ts`),
-          templateFile: 'plop-templates/domain/update-dto.hbs',
+          path: path.join(projectRoot, `${base}/domain/dtos/${resource}/update-${resource}.dto.ts`),
+          templateFile: 'plop-templates/domain/dtos/update-dto.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/create-${name}.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${resource}/create-${resource}.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/create-action.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/get-${name}s.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${resource}/get-${resource}s.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/get-action.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/update-${name}.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${resource}/update-${resource}.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/update-action.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/delete-${name}.action.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/domain/actions/${resource}/delete-${resource}.action.ts`,
+          ),
           templateFile: 'plop-templates/domain/actions/delete-action.hbs',
-        },
-        {
-          type: 'add',
-          path: path.join(projectRoot, `${base}/domain/actions/${name}/index.ts`),
-          templateFile: 'plop-templates/domain/actions/index.hbs',
         },
 
         // Infrastructure
@@ -378,7 +411,7 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${name}/create-${name}.impl.ts`,
+            `${base}/infrastructure/actions/${resource}/create-${resource}.impl.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/create-impl.hbs',
         },
@@ -386,7 +419,7 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${name}/get-${name}s.impl.ts`,
+            `${base}/infrastructure/actions/${resource}/get-${resource}s.impl.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/get-impl.hbs',
         },
@@ -394,7 +427,7 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${name}/update-${name}.impl.ts`,
+            `${base}/infrastructure/actions/${resource}/update-${resource}.impl.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/update-impl.hbs',
         },
@@ -402,43 +435,49 @@ export default function (plop) {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/infrastructure/actions/${name}/delete-${name}.impl.ts`,
+            `${base}/infrastructure/actions/${resource}/delete-${resource}.impl.ts`,
           ),
           templateFile: 'plop-templates/infrastructure/actions/delete-impl.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/infrastructure/actions/${name}/index.ts`),
+          path: path.join(projectRoot, `${base}/infrastructure/actions/${resource}/index.ts`),
           templateFile: 'plop-templates/infrastructure/actions/index.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/infrastructure/mappers/${name}.mapper.ts`),
-          templateFile: 'plop-templates/infrastructure/mapper.hbs',
+          path: path.join(projectRoot, `${base}/infrastructure/mappers/${resource}.mapper.ts`),
+          templateFile: 'plop-templates/infrastructure/mappers/mapper.hbs',
         },
 
         // Presentation
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/presentation/composables/${name}/use-${name}.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/presentation/composables/${resource}/use-${resource}.ts`,
+          ),
           templateFile: 'plop-templates/presentation/composables/use-composable.hbs',
         },
         {
           type: 'add',
           path: path.join(
             projectRoot,
-            `${base}/presentation/components/${name}/${pascal}Component.vue`,
+            `${base}/presentation/components/${resource}/${pascal}Component.vue`,
           ),
           templateFile: 'plop-templates/presentation/components/component.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/presentation/pages/${name}/${pascal}Page.vue`),
+          path: path.join(projectRoot, `${base}/presentation/pages/${resource}/${pascal}Page.vue`),
           templateFile: 'plop-templates/presentation/pages/page.hbs',
         },
         {
           type: 'add',
-          path: path.join(projectRoot, `${base}/presentation/store/${name}/${name}.store.ts`),
+          path: path.join(
+            projectRoot,
+            `${base}/presentation/store/${resource}/${resource}.store.ts`,
+          ),
           templateFile: 'plop-templates/presentation/store/store.hbs',
         },
       ];

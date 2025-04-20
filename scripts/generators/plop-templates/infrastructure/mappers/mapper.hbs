@@ -1,14 +1,14 @@
-import type { {{pascalCase name}}CreateResponse } from '@{{name}}/infrastructure/interfaces/{{name}}/create-response'
-import type { {{pascalCase name}}GetResponse } from '@{{name}}/infrastructure/interfaces/{{name}}/get-response'
-import type { {{pascalCase name}}UpdateResponse } from '@{{name}}/infrastructure/interfaces/{{name}}/update-response'
-import type { I{{pascalCase name}} } from '@{{name}}/domain/entities/{{name}}.entity'
+import type { {{pascalCase resource}}CreateResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/create-response'
+import type { {{pascalCase resource}}GetResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/get-response'
+import type { {{pascalCase resource}}UpdateResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/update-response'
+import type { I{{pascalCase resource}} } from '@{{feature}}/domain/entities/{{resource}}.entity'
 
 /**
  * Map the creation response to the domain entity.
  */
-export function map{{pascalCase name}}CreateResponse(
-  data: {{pascalCase name}}CreateResponse
-): I{{pascalCase name}} {
+export function map{{pascalCase resource}}CreateResponse(
+  data: {{pascalCase resource}}CreateResponse
+): I{{pascalCase resource}} {
   return {
     id: data.id,
     // TODO: map here the creation fields
@@ -18,9 +18,9 @@ export function map{{pascalCase name}}CreateResponse(
 /**
  * Map the individual read response to the domain entity.
  */
-export function map{{pascalCase name}}GetResponse(
-  data: {{pascalCase name}}GetResponse
-): I{{pascalCase name}} {
+export function map{{pascalCase resource}}GetResponse(
+  data: {{pascalCase resource}}GetResponse
+): I{{pascalCase resource}} {
   return {
     id: data.id,
     // TODO: map here the read fields
@@ -30,9 +30,9 @@ export function map{{pascalCase name}}GetResponse(
 /**
  * Map the update response to the domain entity.
  */
-export function map{{pascalCase name}}UpdateResponse(
-  data: {{pascalCase name}}UpdateResponse
-): I{{pascalCase name}} {
+export function map{{pascalCase resource}}UpdateResponse(
+  data: {{pascalCase resource}}UpdateResponse
+): I{{pascalCase resource}} {
   return {
     id: data.id,
     // TODO: map here the update fields

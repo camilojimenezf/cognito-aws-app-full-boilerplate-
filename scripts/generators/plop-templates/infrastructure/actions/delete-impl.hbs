@@ -1,10 +1,10 @@
 import { ApiClientFactory } from '@/api/api.client'
-import type { Delete{{pascalCase name}} } from '@{{name}}/domain/actions/{{name}}/delete-{{name}}.action'
+import type { Delete{{pascalCase resource}} } from '@{{feature}}/domain/actions/{{resource}}/delete-{{resource}}.action'
 
 const apiClient = ApiClientFactory.createAuthClient()
 
-export const delete{{pascalCase name}}: Delete{{pascalCase name}} = async (
+export const delete{{pascalCase resource}}: Delete{{pascalCase resource}} = async (
   id: string,
 ) => {
-  await apiClient.delete<void>(`/{{name}}s/${id}`)
+  await apiClient.delete<void>(`/{{resource}}s/${id}`)
 }
