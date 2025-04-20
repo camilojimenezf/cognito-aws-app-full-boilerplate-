@@ -1,13 +1,13 @@
 import { ApiClientFactory } from '@/api/api.client'
 import type { List{{pascalCase resource}}s } from '@{{feature}}/domain/actions/{{resource}}/list-{{resource}}s.action'
-import { type {{pascalCase resource}}GetResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/get-response'
-import { map{{pascalCase resource}}GetResponse } from '@{{feature}}/infrastructure/mappers/{{resource}}.mapper'
+import { type {{pascalCase resource}}GetApiResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/get-response'
+import { map{{pascalCase resource}}GetApiResponseTo{{pascalCase resource}} } from '@{{feature}}/infrastructure/mappers/{{resource}}.mapper'
 
 const apiClient = ApiClientFactory.createAuthClient()
 
 export const list{{pascalCase resource}}s: List{{pascalCase resource}}s = async () => {
-  const response = await apiClient.get<{{pascalCase resource}}GetResponse[]>(
+  const response = await apiClient.get<{{pascalCase resource}}GetApiResponse[]>(
     '/{{resource}}s',
   )
-  return response.data.map(map{{pascalCase resource}}GetResponse)
+  return response.data.map(map{{pascalCase resource}}GetApiResponseTo{{pascalCase resource}})
 }

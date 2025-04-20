@@ -1,17 +1,17 @@
 import { ApiClientFactory } from '@/api/api.client'
 import type { Create{{pascalCase resource}} } from '@{{feature}}/domain/actions/{{resource}}/create-{{resource}}.action'
 import type { Create{{pascalCase resource}}Dto } from '@{{feature}}/domain/dtos/{{resource}}/create-{{resource}}.dto'
-import { type {{pascalCase resource}}CreateResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/create-response'
-import { map{{pascalCase resource}}CreateResponse } from '@{{feature}}/infrastructure/mappers/{{resource}}.mapper'
+import { type {{pascalCase resource}}CreateApiResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/create-response'
+import { map{{pascalCase resource}}CreateApiResponseTo{{pascalCase resource}} } from '@{{feature}}/infrastructure/mappers/{{resource}}.mapper'
 
 const apiClient = ApiClientFactory.createAuthClient()
 
 export const create{{pascalCase resource}}: Create{{pascalCase resource}} = async (
   input: Create{{pascalCase resource}}Dto
 ) => {
-  const response = await apiClient.post<{{pascalCase resource}}CreateResponse>(
+  const response = await apiClient.post<{{pascalCase resource}}CreateApiResponse>(
     '/{{resource}}s',
     input,
   )
-  return map{{pascalCase resource}}CreateResponse(response.data)
+  return map{{pascalCase resource}}CreateApiResponseTo{{pascalCase resource}}(response.data)
 }

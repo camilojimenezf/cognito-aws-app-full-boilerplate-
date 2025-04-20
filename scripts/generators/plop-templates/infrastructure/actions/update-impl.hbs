@@ -1,17 +1,17 @@
 import { ApiClientFactory } from '@/api/api.client'
 import type { Update{{pascalCase resource}} } from '@{{feature}}/domain/actions/{{resource}}/update-{{resource}}.action'
 import type { Update{{pascalCase resource}}Dto } from '@{{feature}}/domain/dtos/{{resource}}/update-{{resource}}.dto'
-import { type {{pascalCase resource}}UpdateResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/update-response'
-import { map{{pascalCase resource}}UpdateResponse } from '@{{feature}}/infrastructure/mappers/{{resource}}.mapper'
+import { type {{pascalCase resource}}UpdateApiResponse } from '@{{feature}}/infrastructure/interfaces/{{resource}}/update-response'
+import { map{{pascalCase resource}}UpdateApiResponseTo{{pascalCase resource}} } from '@{{feature}}/infrastructure/mappers/{{resource}}.mapper'
 
 const apiClient = ApiClientFactory.createAuthClient()
 
 export const update{{pascalCase resource}}: Update{{pascalCase resource}} = async (
   input: Update{{pascalCase resource}}Dto
 ) => {
-  const response = await apiClient.put<{{pascalCase resource}}UpdateResponse>(
+  const response = await apiClient.put<{{pascalCase resource}}UpdateApiResponse>(
     `/{{resource}}s/${input.id}`,
     input,
   )
-  return map{{pascalCase resource}}UpdateResponse(response.data)
+  return map{{pascalCase resource}}UpdateApiResponseTo{{pascalCase resource}}(response.data)
 }

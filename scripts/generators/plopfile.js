@@ -29,12 +29,12 @@ export default function (plop) {
       const { feature } = answers;
       const base = path.join(projectRoot, `src/features/${feature}`);
 
-      // Si ya existe, abortar
+      // if the feature already exists, abort
       if (fs.existsSync(base)) {
         throw new Error(`Feature "${feature}" ya existe en src/features/${feature}`);
       }
 
-      // Solo creamos carpetas vacías con un .gitkeep en cada una
+      // We only create empty folders with .gitkeep in each one
       const dirs = [
         `${base}/domain/entities`,
         `${base}/domain/dtos`,
@@ -49,13 +49,13 @@ export default function (plop) {
       ];
 
       return [
-        // Por cada carpeta, añadimos un .gitkeep
+        // For each folder, we add a .gitkeep
         ...dirs.map((dir) => ({
           type: 'add',
           path: `${dir}/.gitkeep`,
           templateFile: 'plop-templates/empty.gitkeep.hbs',
         })),
-        // Y actualizamos alias
+        // And we update the aliases
         {
           type: 'modify',
           path: path.join(projectRoot, 'vite.config.ts'),
